@@ -2,29 +2,28 @@ name: DevSecOps Pipeline
 
 
 on:
-    push:
-        branches:
-            - main
-
+  push:
+    branches:
+      - main
 
 jobs:
-    security:
-        runs-on: ubuntu-latest
+  security:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-            - name: SonarQube Scan
-              uses: SonarSource/sonarqube-scan-action
-              env:
-                SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-            - name: Build Docker Image
-              run: docker build -t myapp .
+      - name: Build Docker Image
+        run: docker build -t myapp .
 
-            - name: Wiz Scan
-              run: echo "Scanning image"
+      - name: Wiz Scan
+        run: echo "Scanning image"
 
-            - name: Deploy
-              run: echo "Deploying"
+      - name: Deploy
+        run: echo "Deploying"
