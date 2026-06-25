@@ -1,0 +1,31 @@
+name: DevSecOps Pipeline
+
+
+on:
+    push:
+        branches:
+            - main
+
+
+jobs:
+    security:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: SonarQube Scan
+              uses: SonarSource/sonarqube-scan-action@v5
+              env:
+                SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+                SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+
+            - name: Build Docker Image
+              run: docker build -t myapp .
+
+            - name: Wiz Scan
+              run: echo "Scanning image"
+
+            - name: Deploy
+              run: echo "Deploying"
