@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@<full-commit-sha>
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
